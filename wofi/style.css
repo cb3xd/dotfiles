@@ -1,0 +1,105 @@
+/* ============================================================
+   WOFI — NEON GENESIS EVANGELION CRT DISPLAY THEME
+   Orange / Amber phosphor monitor aesthetic
+   Mode: drun, run
+   ============================================================ */
+
+/* --- Root window --- */
+window {
+    margin:           0;
+    border:           2px solid #c85a00;
+    background-color: #0a0400;
+    font-family:      "terminus", "Terminus", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size:        13px;
+    color:            #e8700a;
+    border-radius:    0;
+}
+
+/* --- Outer box — scanlines active --- */
+#outer-box {
+    margin:           0;
+    padding:          0;
+    border:           none;
+    background-color: transparent;
+    background-image: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.18) 0px,
+        rgba(0, 0, 0, 0.18) 1px,
+        transparent         1px,
+        transparent         3px
+    );
+}
+
+/* --- Search input --- */
+#input {
+    margin:           0;
+    padding:          8px 12px;
+    border:           none;
+    border-bottom:    1px solid #7a3300;
+    background-color: #0d0500;
+    color:            #f0820f;
+    font-family:      inherit;
+    font-size:        14px;
+    caret-color:      #ff9a1f;
+    border-radius:    0;
+    box-shadow:       none;
+    outline:          none;
+}
+
+#input:focus {
+    border-bottom:    1px solid #c85a00;
+    background-color: #110600;
+    color:            #ffaa33;
+}
+
+#input placeholder {
+    color:            #5a2800;
+}
+
+/* --- Scroll / inner containers --- */
+#scroll {
+    margin:           0;
+    padding:          4px 0;
+    border:           none;
+    background-color: transparent;
+}
+
+#inner-box {
+    margin:           0;
+    padding:          0;
+    border:           none;
+    background-color: transparent;
+}
+
+/* --- Entry rows --- */
+.entry {
+    padding:          6px 14px;
+    margin:           0;
+    border:           none;
+    border-left:      2px solid transparent;
+    background-color: #000000;
+    color:            #b55200;
+    font-family:      inherit;
+    font-size:        13px;
+    border-radius:    0;
+    transition:       none;
+}
+
+.entry:nth-child(even) {
+    background-color: #0c0400;
+}
+
+/* --- Selected — text only, no background change --- */
+.entry:selected,
+.entry:focus {
+    background-color: #000000;
+    border-left:      2px solid transparent;
+    outline:          none;
+    color:            #32fffb;
+}
+
+.entry:selected .title,
+.entry:focus .title {
+    color:            #32fffb;
+}
+

@@ -1,0 +1,124 @@
+set $internal eDP-1
+set $external HDMI-A-1
+output $external mode 1920x1080@60Hz pos 0 0
+
+# Output and Autostart
+output * bg /home/$USER/Pictures/Wallpapers/rei.jpg fill
+exec /usr/lib/polkit-kde-authentication-agent-1
+exec dbus-update-activation-environment --systemd --all
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+exec_always foot --server
+# Execute waybar at startup
+# # Kill any existing waybar instance and start a new one
+exec_always killall -q waybar; waybar
+exec_always waybar
+# Variables
+set $mod Mod4
+
+# Applications
+set $term footclient 
+set $browser zen-browser
+set $communications vesktop
+set $files dolphin
+set $wofi_drun wofi --show drun
+set $notes obsidian
+
+floating_modifier $mod
+
+# Colors
+set $bg #000000
+set $fg #ea6500
+set $ur #ff2244
+set $uf #7a5520
+
+# Keybindings - Applications
+bindsym $mod+space exec $wofi_drun
+bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+Shift+s exec $term
+bindsym $mod+w exec $browser
+bindsym $mod+d exec $communications
+bindsym $mod+e exec $files
+bindsym $mod+s exec $notes
+bindsym $mod+q kill
+
+# Navigation
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Layout controls
+bindsym $mod+b split h
+bindsym $mod+v split v
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+m floating toggle
+bindsym $mod+shift+q layout toggle split
+
+# Workspace Management
+bindsym $mod+Tab workspace back_and_forth
+
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 0
+
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 0
+
+# System Management
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaymsg exit
+
+# Resize Mode
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize shrink height 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# title bar
+title_align center
+font pango: JetBrainsMono Nerd Font Bold 8
+titlebar_border_thickness 3
+titlebar_padding 3
+for_window [app_id="^."] title_format "%title"
+for_window [class="^."] title_format "%title"
+
+# adjusting borders
+default_border none
+default_border normal 0
+default_floating_border normal 0
+for_window [app_id="^.*"] border pixel 1
+
+# gaps
+gaps inner 5
+gaps outer 0
+client.focused          $fg $fg $bg $fg $fg
+client.unfocused        $fg $bg $fg $uf $uf
+client.focused_inactive $fg $fg $bg $uf $uf
+client.urgent           $ur $ur $bg $ur $ur
